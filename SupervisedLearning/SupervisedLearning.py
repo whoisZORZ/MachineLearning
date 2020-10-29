@@ -52,7 +52,7 @@ raw_data = urllib.request.urlopen(url);
 data = np.loadtxt(raw_data, delimiter="\t");
 X = data[:,0:3];
 y = data[:,3];
-target_names = ['non-skin','skin'];
+target_names = ['skin','non-skin'];
 
 X_train, X_test, y_train, y_test = ms.train_test_split(X,y, test_size=0.3, 
                                 shuffle = True, random_state=2020);
