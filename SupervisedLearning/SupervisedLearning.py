@@ -93,10 +93,10 @@ plot_confusion_matrix(cm_naive_bayes_test, classes=target_names,
    title='Confusion matrix for test dataset (naive Bayes)');
 plt.show();
 
-fpr_logreg, tpr_logreg, _ = metrics.roc_curve(y_test, yprobab_logreg[:,1], pos_label=1);
+fpr_logreg, tpr_logreg, _ = metrics.roc_curve(y_test, yprobab_logreg[:,1], pos_label=2);
 roc_auc_logreg = metrics.auc(fpr_logreg, tpr_logreg);
 
-fpr_naive_bayes, tpr_naive_bayes, _ = metrics.roc_curve(y_test, yprobab_naive_bayes[:,1], pos_label=1);
+fpr_naive_bayes, tpr_naive_bayes, _ = metrics.roc_curve(y_test, yprobab_naive_bayes[:,1], pos_label=2);
 roc_auc_naive_bayes = metrics.auc(fpr_naive_bayes, tpr_naive_bayes);
 
 plt.figure(5);
