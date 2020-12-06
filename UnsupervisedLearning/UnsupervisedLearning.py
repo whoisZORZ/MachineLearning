@@ -66,28 +66,14 @@ plt.ylabel('DB index');
 plt.plot(np.arange(2,Max_K),DB, color='blue')
 plt.show();
 
-K = 4;
+K = 8;
 kmeans_cluster = cluster.KMeans(n_clusters=K, random_state=2020);
 kmeans_cluster.fit(X);
 ypred = kmeans_cluster.predict(X);
 centers = kmeans_cluster.cluster_centers_;
 
 fig = plt.figure(5);
-plt.title('Scatterplot of datapoints with 4 clusters');
-plt.xlabel('X');
-plt.ylabel('Y');
-plt.scatter(X[:,0],X[:,1],s=50,c=ypred);
-plt.scatter(centers[:,0],centers[:,1],s=50,c='red');
-plt.show();
-
-K = 6;
-kmeans_cluster = cluster.KMeans(n_clusters=K, random_state=2020);
-kmeans_cluster.fit(X);
-ypred = kmeans_cluster.predict(X);
-centers = kmeans_cluster.cluster_centers_;
-
-fig = plt.figure(6);
-plt.title('Scatterplot of datapoints with 6 clusters');
+plt.title('Scatterplot of datapoints with 8 clusters');
 plt.xlabel('X');
 plt.ylabel('Y');
 plt.scatter(X[:,0],X[:,1],s=50,c=ypred);
