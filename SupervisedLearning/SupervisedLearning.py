@@ -11,10 +11,11 @@ import itertools;
 import numpy as np;
 import urllib;
 from matplotlib import pyplot as plt;
-from sklearn import model_selection as ms;
 from sklearn import linear_model as lm;
-from sklearn import naive_bayes as nb;
 from sklearn import metrics;
+from sklearn import model_selection as ms;
+from sklearn import naive_bayes as nb;
+from sklearn import neural_network as nn;
 
 def plot_confusion_matrix(cm, classes,
                           normalize=False,
@@ -93,18 +94,40 @@ plot_confusion_matrix(cm_naive_bayes_test, classes=target_names,
    title='Confusion matrix for test dataset (naive Bayes)');
 plt.show();
 
+mlp_classifier = nn.MLPClassifier(hidden_layer_sizes=(3,));
+mlp_classifier.fit(X_train, y_train);
+ypred_mlp = mlp_classifier.predict(X_train);
+cm_mlp_train = metrics.confusion_matrix(y_train, ypred_mlp);
+ypred_mlp = mlp_classifier.predict(X_test);
+cm_mlp_test = metrics.confusion_matrix(y_test, ypred_mlp);
+yprobab_mlp = mlp_classifier.predict_proba(X_test);
+
+plt.figure(5);
+plot_confusion_matrix(cm_naive_bayes_train, classes=target_names,
+    title='Confusion matrix for training dataset (MLP)');
+plt.show();
+
+plt.figure(6);
+plot_confusion_matrix(cm_naive_bayes_test, classes=target_names,
+   title='Confusion matrix for test dataset (MLP)');
+plt.show();
+
 fpr_logreg, tpr_logreg, _ = metrics.roc_curve(y_test, yprobab_logreg[:,1], pos_label=2);
 roc_auc_logreg = metrics.auc(fpr_logreg, tpr_logreg);
 
 fpr_naive_bayes, tpr_naive_bayes, _ = metrics.roc_curve(y_test, yprobab_naive_bayes[:,1], pos_label=2);
 roc_auc_naive_bayes = metrics.auc(fpr_naive_bayes, tpr_naive_bayes);
 
-plt.figure(5);
+fpr_mlp, tpr_mlp, _ = metrics.roc_curve(y_test, yprobab_mlp[:,1], pos_label=2);
+roc_auc_mlp = metrics.auc(fpr_mlp, tpr_mlp);
+
+plt.figure(7);
 lw = 2;
 plt.plot(fpr_logreg, tpr_logreg, color='red',
          lw=lw, label='Logistic regression (area = %0.2f)' % roc_auc_logreg);
 plt.plot(fpr_naive_bayes, tpr_naive_bayes, color='blue',
          lw=lw, label='Naive Bayes (area = %0.2f)' % roc_auc_naive_bayes);
+plt.plot(fpr_mlp, tpr_mlp, color='green', lw=lw, label='MLP (area = %0.2f)' % roc_auc_mlp);
 plt.plot([0, 1], [0, 1], color='black', lw=lw, linestyle='--');
 plt.xlim([0.0, 1.0]);
 plt.ylim([0.0, 1.05]);
