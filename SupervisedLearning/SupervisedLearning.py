@@ -103,12 +103,12 @@ cm_mlp_test = metrics.confusion_matrix(y_test, ypred_mlp);
 yprobab_mlp = mlp_classifier.predict_proba(X_test);
 
 plt.figure(5);
-plot_confusion_matrix(cm_naive_bayes_train, classes=target_names,
+plot_confusion_matrix(cm_mlp_train, classes=target_names,
     title='Confusion matrix for training dataset (MLP)');
 plt.show();
 
 plt.figure(6);
-plot_confusion_matrix(cm_naive_bayes_test, classes=target_names,
+plot_confusion_matrix(cm_mlp_test, classes=target_names,
    title='Confusion matrix for test dataset (MLP)');
 plt.show();
 
